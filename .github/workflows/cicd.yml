@@ -1,0 +1,45 @@
+name: CI/CD for A3
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # Step 2: Set up Python environment
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r ./app/requirements.txt
+
+    # Step 4: Run unit tests (pytest) on test_model_staging
+    - name: Run unit tests on staging model
+      run: |
+        pytest ./app/test_model_staging.py
+
+    # Step 5: SSH into the remote server and pull Docker images
+    - name: SSH and pull Docker image on remote server
+      run: |
+        sudo apt-get update && sudo apt-get install -y sshpass
+        sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no -i st124738_key -J st124738@bazooka.cs.ait.ac.th st124738@ml.brain.cs.ait.ac.th "docker pull sonakul/a3-predicting-car-prices:latest && docker-compose up"
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}

@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    image: sonakul/a3-predicting-car-prices
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 9000:80
+    environment:
+      - HOST=0.0.0.0
+      - PORT=80
+    env_file:
+      - .env
+
+  python:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    platform: linux/amd64
+    volumes:
+      - /var/run/docker.sock:/var/run/docker-host.sock 
+      - ../..:/workspaces:cached
+    entrypoint: ./mlflow/entrypoint.sh
+    command: sleep infinity 
+
+  mlflow:
+    build: 
+      context: ./mlflow
+      dockerfile: Dockerfile
+    platform: linux/amd64
+    volumes:
+      - mlflow:/mlflow:rw
+    ports:
+      - 9001:5000
+
+volumes:
+  mlflow:
