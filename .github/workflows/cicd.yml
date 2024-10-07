@@ -33,6 +33,14 @@ jobs:
         pip install pytest
         pip install pytest-depends
         pip install python-dotenv
+        pip install pandas
+        pip install dash
+        pip install seaborn
+        pip install matplotlib
+        pip install scikit-learn
+        pip install plotly
+        pip install cloudpickle
+        pip install mlflow
 
     # Step 4: Run unit tests (pytest) on test_model_staging
     - name: Run unit tests on staging model
