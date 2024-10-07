@@ -1,22 +1,16 @@
-name: CI/CD for A3
+name: Test Model on Staging
+# Name of this run
+run-name: ${{ github.actor }} Test model on staging
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
+# there is no trigger. I will do it manaully in GitHub.
+on: workflow_dispatch
 
 jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout the repository
-    - name: Checkout repository
-      uses: actions/checkout@v4.0.0
+    - uses: actions/checkout@v4
 
     # Step 2: Set up Python environment
     - name: Set up Python 3.x
