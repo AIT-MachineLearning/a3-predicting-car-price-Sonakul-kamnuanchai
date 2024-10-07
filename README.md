@@ -28,5 +28,4 @@ Go to Folder app and open terminal
   - command : docker build -t your-image-name . (Build your images)
   - command : docker compose up (run website in your local machine)
 
- Website a3 car prediction : https://st124738-a3.ml.brain.cs.ait.ac.th
 
