@@ -1,23 +1,15 @@
 import pytest
 import numpy as np
-from dotenv import load_dotenv
 import os
 import mlflow
 import cloudpickle as cp
 
-load_dotenv()
-MLFLOW_TRACKING_URI = "https://mlflow.ml.brain.cs.ait.ac.th"
-APP_MODEL_NAME = "st124738-a3-model"
-EXPERIMENT_NAME = "st124738-a3"
-MLFLOW_TRACKING_USERNAME = "admin"
-MLFLOW_TRACKING_PASSWORD = "password"
-
 #Load the model from mlflow
-os.environ['MLFLOW_TRACKING_USERNAME'] = MLFLOW_TRACKING_USERNAME
-os.environ['MLFLOW_TRACKING_PASSWORD'] = MLFLOW_TRACKING_PASSWORD
-mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
-mlflow.set_experiment(experiment_name=EXPERIMENT_NAME)
-model_name = APP_MODEL_NAME 
+os.environ['MLFLOW_TRACKING_USERNAME'] = "admin"
+os.environ['MLFLOW_TRACKING_PASSWORD'] = "password"
+mlflow.set_tracking_uri("https://mlflow.ml.brain.cs.ait.ac.th")
+mlflow.set_experiment(experiment_name="st124738-a3")
+model_name = "st124738-a3-model" 
 model_version = '1'
 loaded_model = mlflow.sklearn.load_model(
     model_uri=f"models:/{model_name}/{model_version}"
