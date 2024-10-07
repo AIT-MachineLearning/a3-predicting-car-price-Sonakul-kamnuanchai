@@ -39,7 +39,7 @@ jobs:
         pip install matplotlib
         pip install scikit-learn
         pip install plotly
-        pip install cloudpickle
+        pip install cloudpickle==3.0.0
         pip install mlflow
 
     # Step 4: Run unit tests (pytest) on test_model_staging
