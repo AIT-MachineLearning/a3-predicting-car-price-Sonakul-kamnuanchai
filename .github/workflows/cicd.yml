@@ -1,10 +1,13 @@
-# Name of this workflow
-name: Test Model on Staging
-# Name of this run
-run-name: ${{ github.actor }} Test model on staging
+name: CI/CD for A3
 
-# there is no trigger. I will do it manaully in GitHub.
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   test-and-deploy:
