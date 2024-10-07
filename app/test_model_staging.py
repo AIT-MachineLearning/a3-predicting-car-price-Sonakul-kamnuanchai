@@ -3,6 +3,7 @@ import numpy as np
 from dotenv import load_dotenv
 import os
 import mlflow
+import cloudpickle as cp
 
 load_dotenv()
 MLFLOW_TRACKING_URI = "https://mlflow.ml.brain.cs.ait.ac.th"
