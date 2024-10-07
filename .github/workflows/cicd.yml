@@ -28,10 +28,10 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        RUN pip install dash[testing]
-        RUN pip install pytest
-        RUN pip install pytest-depends
-        RUN pip install python-dotenv
+        pip install dash[testing]
+        pip install pytest
+        pip install pytest-depends
+        pip install python-dotenv
 
     # Step 4: Run unit tests (pytest) on test_model_staging
     - name: Run unit tests on staging model
