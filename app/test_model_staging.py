@@ -1,6 +1,26 @@
 import pytest
 import numpy as np
-from app import loaded_model
+from dotenv import load_dotenv
+import os
+import mlflow
+
+load_dotenv()
+MLFLOW_TRACKING_URI = os.getenv('MLFLOW_TRACKING_URI')
+APP_MODEL_NAME = os.getenv('APP_MODEL_NAME')
+EXPERIMENT_NAME = os.getenv('EXPERIMENT_NAME')
+MLFLOW_TRACKING_USERNAME = os.getenv('MLFLOW_TRACKING_USERNAME')
+MLFLOW_TRACKING_PASSWORD = os.getenv('MLFLOW_TRACKING_PASSWORD')
+
+#Load the model from mlflow
+os.environ['MLFLOW_TRACKING_USERNAME'] = MLFLOW_TRACKING_USERNAME
+os.environ['MLFLOW_TRACKING_PASSWORD'] = MLFLOW_TRACKING_PASSWORD
+mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+mlflow.set_experiment(experiment_name=EXPERIMENT_NAME)
+model_name = APP_MODEL_NAME 
+model_version = '1'
+loaded_model = mlflow.sklearn.load_model(
+    model_uri=f"models:/{model_name}/{model_version}"
+)
 
 sample_input = np.array([[20, 15000, 2015, 50000, 1500, 110]])
 
